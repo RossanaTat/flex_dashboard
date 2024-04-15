@@ -1,26 +1,51 @@
 ---
-title: "Themed dashboard"
+title: "Dashboard title"
 output: 
   flexdashboard::flex_dashboard:
     theme:
-      bg: "#101010"
-      fg: "#FDF7F7" 
-      primary: "#ED79F9"
-      base_font:
-        google: Prompt
+      bg: "white"
+      fg: "#03045e" 
+      primary: "#007FFF"
+      base_font: 
+        google: Roboto
       code_font:
         google: JetBrains Mono
     orientation: columns
     vertical_layout: fill
+runtime: shiny
+
 ---
 
 ```{r setup, include=FALSE}
+
 library(flexdashboard)
-# Install thematic and un-comment for themed static plots (i.e., ggplot2)
-# thematic::thematic_rmd()
+thematic::thematic_rmd()
 ```
 
-Column {data-width=650 .tabset}
+Tab1 {#tab_1}
+===========================================================
+
+Sidebar {.sidebar data-width=200}
+-----------------------------------------------------------------------
+
+```{r sidebar-inputselect-page1}
+
+selectInput(
+  "country selector", 
+  label     = "Country selector", 
+  choices   = c(
+    "Country A ", 
+    "Country B"
+  ), 
+  selected  = "Country A", 
+  multiple = FALSE
+)
+
+
+```
+
+
+Column {data-width=500 .tabset}
 -----------------------------------------------------------------------
 
 ### Chart A
@@ -35,18 +60,29 @@ Column {data-width=650 .tabset}
 
 ```
 
-Column {data-width=350}
+Column {data-width=300}
+------------------------------------------------------------------------
+### Plot 1
+
+Tab2 {#tab_2}
+===========================================================
+
+Sidebar {.sidebar data-width=250}
 -----------------------------------------------------------------------
 
-### Chart C
+```{r sidebar-inputselect}
 
-```{r}
+selectInput(
+  "select1", 
+  label     = "Selection 1", 
+  choices   = c(
+    "A", 
+    "B"
+  ), 
+  selected  = "A", 
+  multiple = FALSE
+)
 
-```
-
-### Chart D
-
-```{r}
 
 ```
 
