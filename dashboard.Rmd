@@ -1,31 +1,44 @@
 ---
 title: "Dashboard title"
-output: 
+output:
   flexdashboard::flex_dashboard:
-    theme:
-      bg: "white"
-      fg: "#03045e" 
-      primary: "#007FFF"
-      base_font: 
-        google: Roboto
-      code_font:
-        google: JetBrains Mono
     orientation: columns
     vertical_layout: fill
+    css: "custom_styles.css"
+    theme:
+      version: 4
+      bg: "white"
+      fg: "#2E3440"
+      primary: "#caf0f8"
+      base_font: 
+        google: Roboto
+      heading_font:
+        google: Sen
+      code_font:
+        google: 
+          # arguments to sass::font_google() 
+          family: JetBrains Mono
+          local: false
+    navbar:
+      - { title: "Report", href: "https://google.com", align: right, icon: ion-earth}
+      - { title: "About X", href: "https://google.com", align: right, icon: fa-lightbulb}
+    includes:
+      after_body: footer.html
+      
 runtime: shiny
-
 ---
 
 ```{r setup, include=FALSE}
 
 library(flexdashboard)
 thematic::thematic_rmd()
+
 ```
 
-Tab1 {#tab_1}
+Page1 {#page_1}
 ===========================================================
 
-Sidebar {.sidebar data-width=200}
+Sidebar {.sidebar data-width=250}
 -----------------------------------------------------------------------
 
 ```{r sidebar-inputselect-page1}
@@ -45,26 +58,24 @@ selectInput(
 ```
 
 
-Column {data-width=500 .tabset}
+Column 1 {.tabset .tabset-fade}
 -----------------------------------------------------------------------
 
-### Chart A
+### Tab A
 
 ```{r}
 
 ```
 
-### Chart B
+### Tab B
 
 ```{r}
 
 ```
 
-Column {data-width=300}
-------------------------------------------------------------------------
-### Plot 1
+### Tab C
 
-Tab2 {#tab_2}
+Page2 {#page_2}
 ===========================================================
 
 Sidebar {.sidebar data-width=250}
@@ -82,7 +93,6 @@ selectInput(
   selected  = "A", 
   multiple = FALSE
 )
-
 
 ```
 
