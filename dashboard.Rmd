@@ -1,98 +1,155 @@
 ---
-title: "Dashboard title"
+title: "AAA Dashboard"
 output:
   flexdashboard::flex_dashboard:
     orientation: columns
-    vertical_layout: fill
-    css: "custom_styles.css"
-    theme:
-      version: 4
-      bg: "white"
-      fg: "#2E3440"
-      primary: "#caf0f8"
-      base_font: 
-        google: Roboto
-      heading_font:
-        google: Sen
-      code_font:
-        google: 
-          # arguments to sass::font_google() 
-          family: JetBrains Mono
-          local: false
-    navbar:
-      - { title: "Report", href: "https://google.com", align: right, icon: ion-earth}
-      - { title: "About X", href: "https://google.com", align: right, icon: fa-lightbulb}
-    includes:
-      after_body: footer.html
-      
+    social: menu
+    theme: paper
 runtime: shiny
+navbar:
+      - { title: "Report", href: "https://google.com", align: right, icon: ion-earth}
+      - { title: "About ..", href: "https://google.com", align: right, icon: fa-lightbulb}
 ---
 
-```{r setup, include=FALSE}
-
-library(flexdashboard)
-thematic::thematic_rmd()
-
+```{r}
+htmltools::includeHTML("custom_header.html")
+htmltools::includeHTML("footer.html")
 ```
 
-Page1 {#page_1}
+```{r setup-packages, include=FALSE}
+library("tidyverse")
+library("rlang")
+library("here")
+library("data.table")
+library("plotly")
+library("flexdashboard")  
+library("joyn")
+library("gghighlight")
+library("DT")
+library("RColorBrewer")
+library("highcharter")
+library("ggrepel")
+library("ggtext")
+library("zoo")
+library("collapse")
+```
+
+PAGE1 {#page1}
 ===========================================================
 
 Sidebar {.sidebar data-width=250}
 -----------------------------------------------------------------------
 
-```{r sidebar-inputselect-page1}
-
-selectInput(
-  "country selector", 
-  label     = "Country selector", 
-  choices   = c(
-    "Country A ", 
-    "Country B"
-  ), 
-  selected  = "Country A", 
-  multiple = FALSE
+```{r}
+selectInput("plot_which_trend", 
+                   label = "Plot:",  
+                   choices = c(
+                     "Regional aggregates", 
+                     "Selected economies", 
+                     "Both"
+                   ), 
+                   selected = c("Regional aggregates"), 
+                   multiple = FALSE
 )
-
-
 ```
 
-
-Column 1 {.tabset .tabset-fade}
+Column {.tabset .tabset-fade}
 -----------------------------------------------------------------------
 
-### Tab A
+### Tab 1 
 
-```{r}
+### Tab2
 
-```
-
-### Tab B
-
-```{r}
-
-```
-
-### Tab C
-
-Page2 {#page_2}
+PAGE2 {#page2}
 ===========================================================
 
 Sidebar {.sidebar data-width=250}
 -----------------------------------------------------------------------
 
-```{r sidebar-inputselect}
+```{r}
 
 selectInput(
-  "select1", 
-  label     = "Selection 1", 
+  "level_or_growth_decomposition", 
+  label     = "Level or growth decomposition:", 
   choices   = c(
-    "A", 
-    "B"
+    "Level", 
+    "Growth"
   ), 
-  selected  = "A", 
+  selected  = "Level", 
   multiple = FALSE
 )
 
 ```
+
+Column {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+### Visualization
+
+### Explanation
+
+PAGE3
+===========================================================
+
+
+Sidebar {.sidebar data-width=200}
+-----------------------------------------------------------------------
+
+```{r}
+selectInput("plot_which_change", 
+                   label = "Plot:",  
+                   choices = c(
+                     "Regional aggregates", 
+                     "Countries"
+                   ), 
+                   selected = c("Regional aggregates"), 
+                   multiple = FALSE)
+
+```
+
+Column {.tabset .tabset}
+-----------------------------------------------------------------------
+
+### Plot
+
+Column {.tabset data-width=200}
+-----------------------------------------------------------------------
+### Explanation
+
+PAGE4
+===========================================================
+
+Sidebar {.sidebar data-width=200}
+-----------------------------------------------------------------------
+
+```{r}
+selectInput("ineq_indicatorX", 
+            label = "Indicator x-axis:",
+            choices = c(
+              "Prosperity Gap",
+              "Mean", 
+              "Mean - Bottom 40", 
+              "(PG) Inequality"
+            ),
+            selected = "Mean")
+```
+
+Column {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+### Plot
+
+<!-- Column {.tabset data-width=200} -->
+<!-- ----------------------------------------------------------------------- -->
+
+### Explanation
+
+About and Definitions {#tab_about}
+===========================================================
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### About Page {#About}
+### Definitions {#Definitions}
 
